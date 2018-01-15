@@ -4,11 +4,22 @@ var PORT= process.env.PORT || 5000;
 
 var URLs={
     original:'http://www.google.com',
-    short:'http://localhost:5000/c001'
+    short:'https://url-shor-t.herokuapp.com/c001'
 }
-app.use(express.static(__dirname + '/public'));
+//app.use(express.static(__dirname + '/public'));
 app.get('/', function(req,res){
-    res.sendFile(__dirname + '/views/index.html');
+    var host= req.headers.host;
+
+
+    res.send('<h1 class="header">FreeCodeCamp API Basejump: URL Shortener Microservice</h1>'+
+'<blockquote> <p>User stories:</p><ul><li>I can pass a URL as a parameter and I will receive a shortened URL in the JSON response.</li>'+
+            '<li>When I visit that shortened URL, it will redirect me to my original link. </li>   </ul> </blockquote>'+
+     
+    '<h3>Example creation usage:</h3> <code>https://url-shor-t.herokuapp.com/short/https://www.google.com</code><br/>'+
+    '<code>'+host+'short/http://foo.com</code><h3>Example creation output</h3><code>{'+
+        '"original_url":"' + URLs.original +'", "short_url":"'+ URLs.short +'"'+
+     ' }</code><h3>Usage:</h3><code>'+ URLs.short+ '</code><h3>Will redirect to:</h3><code>https://www.google.com/</code></div>'
+    );
     });
 
 
